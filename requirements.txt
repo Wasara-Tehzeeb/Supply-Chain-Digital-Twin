@@ -1,0 +1,25 @@
+# Data Processing
+numpy
+pandas
+
+# Machine Learning
+scikit-learn
+statsmodels
+joblib
+
+# Digital Twin Simulation
+simpy
+
+# Backend API
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg2-binary
+
+# Visualization
+matplotlib
+
+# Testing
+pytest

@@ -1,0 +1,31 @@
+# Python Virtual Environment
+.venv/
+venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment Variables
+.env
+.env.*
+
+# Generated Data
+data/raw/
+data/processed/
+
+# Trained Models
+models/*.pkl
+models/*.joblib
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
