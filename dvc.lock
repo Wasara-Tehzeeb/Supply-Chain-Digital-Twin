@@ -1,0 +1,131 @@
+schema: '2.0'
+stages:
+  generate_data:
+    cmd: python -m src.pipeline.generate_data
+    deps:
+    - path: src/pipeline/generate_data.py
+      hash: md5
+      md5: 96c419b0a657ea181aac39836ac8ad46
+      size: 3685
+    params:
+      params.yaml:
+        data:
+          demand_days: 180
+          start_date: '2026-01-01'
+          n_shipments: 1000
+        seed: 42
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: c1bdc4d9f87dae6c8dc39eed4f6a79d0.dir
+      size: 59001
+      nfiles: 2
+  validate:
+    cmd: python -m src.pipeline.validate
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: c1bdc4d9f87dae6c8dc39eed4f6a79d0.dir
+      size: 59001
+      nfiles: 2
+    - path: src/pipeline/validate.py
+      hash: md5
+      md5: 93c4b25f7fad5c52e67ec0f5365ad4fc
+      size: 5672
+    outs:
+    - path: reports/validation_demand.json
+      hash: md5
+      md5: c07830488b575932450a23781f4529c3
+      size: 175
+    - path: reports/validation_supplier.json
+      hash: md5
+      md5: c6aad84c8bd96cf5078e38bf1e521695
+      size: 182
+  prepare:
+    cmd: python -m src.pipeline.prepare
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: c1bdc4d9f87dae6c8dc39eed4f6a79d0.dir
+      size: 59001
+      nfiles: 2
+    - path: reports/validation_demand.json
+      hash: md5
+      md5: c07830488b575932450a23781f4529c3
+      size: 175
+    - path: reports/validation_supplier.json
+      hash: md5
+      md5: c6aad84c8bd96cf5078e38bf1e521695
+      size: 182
+    - path: src/pipeline/prepare.py
+      hash: md5
+      md5: c33fb3eeb4827e238bada31aefbb4f0f
+      size: 3547
+    params:
+      params.yaml:
+        features:
+          lags:
+          - 1
+          - 7
+          rolling_window: 7
+        split:
+          train_frac: 0.7
+          val_frac: 0.15
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 08d238fbb5d559019c9afb6bb5442d39.dir
+      size: 110699
+      nfiles: 6
+  train:
+    cmd: python -m src.pipeline.train
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 08d238fbb5d559019c9afb6bb5442d39.dir
+      size: 110699
+      nfiles: 6
+    - path: src/pipeline/train.py
+      hash: md5
+      md5: a52ba1fbecd5b5f12c7c908ce0a7fc03
+      size: 12768
+    params:
+      params.yaml:
+        demand:
+          primary_grid:
+            n_estimators:
+            - 100
+            - 200
+            max_depth:
+            - 4
+            - 6
+            min_samples_leaf:
+            - 5
+            - 10
+            - 20
+        mlflow:
+          tracking_uri: sqlite:///mlflow.db
+          experiment: supply-chain-digital-twin
+          demand_model_name: demand_forecaster
+          supplier_model_name: supplier_delay_classifier
+          alias: champion
+        seed: 42
+        supplier:
+          rule_reliability_threshold: 0.9
+          primary_grid:
+            n_estimators:
+            - 100
+            - 200
+            max_depth:
+            - 3
+            - 5
+            - 
+            min_samples_leaf:
+            - 10
+            - 30
+            - 60
+    outs:
+    - path: reports/registered_metrics.json
+      hash: md5
+      md5: c4bf0e12031f94439eabcd8fe972fdbb
+      size: 2228

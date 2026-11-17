@@ -1,0 +1,82 @@
+{
+  "demand": {
+    "task": "demand_forecast",
+    "registered_version": "2",
+    "run_id": "9db2eca3c6cc46409fe5ea22f00c4816",
+    "params": {
+      "model": "ResidualForestRegressor",
+      "anchor": "rolling_mean_7",
+      "n_estimators": 200,
+      "max_depth": 4,
+      "min_samples_leaf": 20,
+      "random_state": 42
+    },
+    "val": {
+      "mae": 3.3484515628512845,
+      "rmse": 4.123169751676417,
+      "r2": 0.48512879784866536
+    },
+    "test": {
+      "mae": 3.5583581043643346,
+      "rmse": 4.339191300150363,
+      "r2": 0.49615988893602725
+    },
+    "best_rule_baseline_val": {
+      "mae": 4.001831501831503,
+      "rmse": 4.964526175429046,
+      "r2": 0.2535653681645801
+    },
+    "classical_baseline_val": {
+      "mae": 3.2615001441148626,
+      "rmse": 4.01816758761407,
+      "r2": 0.5110186858251216
+    },
+    "beats_rule_baseline": true,
+    "beats_classical_baseline": false,
+    "registry_gate": "rule_baselines",
+    "registered": true
+  },
+  "supplier": {
+    "task": "supplier_delay",
+    "registered_version": "2",
+    "run_id": "11ac163324e148539b1c349ed2ae6f13",
+    "params": {
+      "model": "RandomForestClassifier",
+      "n_estimators": 200,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "random_state": 42
+    },
+    "val": {
+      "accuracy": 0.56,
+      "f1": 0.65625,
+      "roc_auc": 0.6231259370314842
+    },
+    "test": {
+      "accuracy": 0.52,
+      "f1": 0.5324675324675324,
+      "roc_auc": 0.5441595441595442
+    },
+    "best_rule_baseline_val": {
+      "accuracy": 0.6133333333333333,
+      "f1": 0.7603305785123967,
+      "roc_auc": 0.5
+    },
+    "classical_baseline_val": {
+      "accuracy": 0.6,
+      "f1": 0.6938775510204082,
+      "roc_auc": 0.6806596701649176
+    },
+    "beats_rule_baseline": true,
+    "beats_classical_baseline": false,
+    "registry_gate": "rule_baselines",
+    "registered": true
+  },
+  "data_versions": {
+    "data_version_demand_raw": "e725e9692571cb8b",
+    "data_version_supplier_raw": "73066b66a8f2675a",
+    "data_version_demand_train": "dad17b146b92bd75",
+    "data_version_supplier_train": "d2656af363109ca5",
+    "params_seed": "42"
+  }
+}

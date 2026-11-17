@@ -1,0 +1,48 @@
+stages:
+  generate_data:
+    cmd: python -m src.pipeline.generate_data
+    deps:
+      - src/pipeline/generate_data.py
+    params:
+      - seed
+      - data
+    outs:
+      - data/raw
+
+  validate:
+    cmd: python -m src.pipeline.validate
+    deps:
+      - src/pipeline/validate.py
+      - data/raw
+    outs:
+      - reports/validation_demand.json:
+          cache: false
+      - reports/validation_supplier.json:
+          cache: false
+
+  prepare:
+    cmd: python -m src.pipeline.prepare
+    deps:
+      - src/pipeline/prepare.py
+      - data/raw
+      - reports/validation_demand.json
+      - reports/validation_supplier.json
+    params:
+      - split
+      - features
+    outs:
+      - data/processed
+
+  train:
+    cmd: python -m src.pipeline.train
+    deps:
+      - src/pipeline/train.py
+      - data/processed
+    params:
+      - seed
+      - demand
+      - supplier
+      - mlflow
+    outs:
+      - reports/registered_metrics.json:
+          cache: false

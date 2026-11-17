@@ -1,0 +1,46 @@
+# Single source of truth for the ML pipeline. DVC tracks these params,
+# MLflow logs them with every run.
+seed: 42
+
+data:
+  demand_days: 180          # length of the synthetic demand history
+  start_date: "2026-01-01"
+  n_shipments: 1000         # supplier delivery records
+
+split:
+  # Time-ordered, non-overlapping fractions (train | validation | test).
+  train_frac: 0.70
+  val_frac: 0.15
+  # test = remainder (0.15)
+
+features:
+  lags: [1, 7]
+  rolling_window: 7
+
+demand:
+  primary_grid:             # grid searched on VALIDATION only
+    n_estimators: [100, 200]
+    max_depth: [4, 6]
+    min_samples_leaf: [5, 10, 20]
+
+supplier:
+  rule_reliability_threshold: 0.90   # rule baseline: delayed if reliability < threshold
+  primary_grid:
+    n_estimators: [100, 200]
+    max_depth: [3, 5, null]
+    min_samples_leaf: [10, 30, 60]
+
+# Registry gate: 'rule_baselines' = primary must beat the best rule-based
+# baseline on validation; 'all_baselines' also requires beating the classical
+# (Ridge / LogisticRegression) baseline.
+registry_gate: "rule_baselines"
+
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment: "supply-chain-digital-twin"
+  demand_model_name: "demand_forecaster"
+  supplier_model_name: "supplier_delay_classifier"
+  alias: "champion"
+
+reproduce:
+  rel_tolerance: 0.001      # allowed relative drift vs reports/expected_metrics.json

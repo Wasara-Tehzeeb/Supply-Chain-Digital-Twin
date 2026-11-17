@@ -1,0 +1,15 @@
+name: ml-pipeline
+on: [push, pull_request]
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements-pipeline.txt
+      - run: python -m pytest tests/test_pipeline_validation.py tests/test_pipeline_splits.py -q
+      - run: python -m src.pipeline.run_all
+      - run: python -m src.pipeline.export_mlflow_logs
+      - uses: actions/upload-artifact@v4
+        with: { name: ml-reports, path: reports/ }

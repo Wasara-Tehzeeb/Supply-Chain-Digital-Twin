@@ -1,0 +1,7 @@
+{
+  "dataset": "demand",
+  "path": "C:\\Users\\hp\\Desktop\\Supply-Chain-Digital-Twin\\data\\raw\\demand_history.csv",
+  "passed": true,
+  "errors": [],
+  "rows": 1620
+}
