@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/pipeline/generate_data.py
       hash: md5
-      md5: 96c419b0a657ea181aac39836ac8ad46
-      size: 3685
+      md5: 061891049dcc6904881700001bd885d7
+      size: 3790
     params:
       params.yaml:
         data:
@@ -30,8 +30,8 @@ stages:
       nfiles: 2
     - path: src/pipeline/validate.py
       hash: md5
-      md5: 93c4b25f7fad5c52e67ec0f5365ad4fc
-      size: 5672
+      md5: 19fefb6198fb2e3f9c8b22d7b8859d59
+      size: 5820
     outs:
     - path: reports/validation_demand.json
       hash: md5
@@ -59,8 +59,8 @@ stages:
       size: 182
     - path: src/pipeline/prepare.py
       hash: md5
-      md5: c33fb3eeb4827e238bada31aefbb4f0f
-      size: 3547
+      md5: 389d264625c6d99b7d166879ad8965f9
+      size: 3628
     params:
       params.yaml:
         features:
@@ -87,8 +87,8 @@ stages:
       nfiles: 6
     - path: src/pipeline/train.py
       hash: md5
-      md5: a52ba1fbecd5b5f12c7c908ce0a7fc03
-      size: 12768
+      md5: 87d38f041116b8bc1799d33f46294552
+      size: 15896
     params:
       params.yaml:
         demand:
@@ -127,5 +127,5 @@ stages:
     outs:
     - path: reports/registered_metrics.json
       hash: md5
-      md5: c4bf0e12031f94439eabcd8fe972fdbb
-      size: 2228
+      md5: 05be7257efdf158e5c9465262c31a77b
+      size: 2070

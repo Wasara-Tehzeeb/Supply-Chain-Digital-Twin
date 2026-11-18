@@ -1,14 +1,14 @@
 {
-  "demand.test.mae": 3.5583581043643346,
-  "demand.test.r2": 0.49615988893602725,
-  "demand.test.rmse": 4.339191300150363,
-  "demand.val.mae": 3.3484515628512845,
-  "demand.val.r2": 0.48512879784866536,
-  "demand.val.rmse": 4.123169751676417,
-  "supplier.test.accuracy": 0.52,
-  "supplier.test.f1": 0.5324675324675324,
-  "supplier.test.roc_auc": 0.5441595441595442,
-  "supplier.val.accuracy": 0.56,
-  "supplier.val.f1": 0.65625,
-  "supplier.val.roc_auc": 0.6231259370314842
+  "demand.test.mae": 3.513988265469995,
+  "demand.test.r2": 0.4751410568844252,
+  "demand.test.rmse": 4.428776136977245,
+  "demand.val.mae": 3.2615001441148626,
+  "demand.val.r2": 0.5110186858251216,
+  "demand.val.rmse": 4.01816758761407,
+  "supplier.test.accuracy": 0.5733333333333334,
+  "supplier.test.f1": 0.5789473684210527,
+  "supplier.test.roc_auc": 0.577991452991453,
+  "supplier.val.accuracy": 0.6,
+  "supplier.val.f1": 0.6938775510204082,
+  "supplier.val.roc_auc": 0.6806596701649176
 }
